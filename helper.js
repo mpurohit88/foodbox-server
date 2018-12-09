@@ -11,10 +11,10 @@ const getDates = function(startDate, endDate, tiffin, isWeekend) {
 
         if(!isWeekend) {
             if(!is_weekend(currentDate)) {
-                dates.push({date: currentDate, tiffin});
+                dates.push({date: (currentDate.getFullYear() + "-" +(currentDate.getMonth() + 1) + "-" + currentDate.getDate()), tiffin});
             }
         } else{
-            dates.push({date: currentDate, tiffin});
+            dates.push({date: (currentDate.getFullYear() + "-" +(currentDate.getMonth() + 1) + "-" + currentDate.getDate()), tiffin});
         }
 
       currentDate = addDays.call(currentDate, 1);

@@ -6,6 +6,8 @@ const app = express();
 const saveCustomer = require('./index').saveCustomer;
 const getCustomers = require('./index').getCustomers;
 const saveSchedule = require('./index').saveSchedule;
+const getSchedule = require('./index').getSchedule;
+const updateSchedule = require('./index').updateSchedule;
 const getBookAuthorDetails = require('./index').getBookAuthorDetails;
 
 app.use(express.static(path.join(__dirname, 'build')));
@@ -29,8 +31,16 @@ app.post('/api/saveSchedule', function (req, res) {
   saveSchedule(req.body).then(books => res.send(books));
 });
 
+app.post('/api/updateSchedule', function (req, res) {
+  updateSchedule(req.body).then(books => res.send(books));
+});
+
 app.get('/api/getCustomers', function (req, res) {
   getCustomers().then(customers => res.send(customers));
+});
+
+app.get('/api/getSchedule', function (req, res) {
+  getSchedule(req.query.customerId).then(schedule => res.send(schedule));
 });
 
 app.get('/api/getAuthorDetails', function (req, res) {

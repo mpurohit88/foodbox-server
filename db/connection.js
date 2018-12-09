@@ -7,8 +7,32 @@
 // });
 
 const Customer = require('../schema/customer');
+const Schedule = require('../schema/schedule');
 
 module.exports = {
+    updateSchedule(newSchedule) {
+        return new Promise(function (resolve, reject) {
+            // get all the customer
+            Schedule.findById(Object(newSchedule.Id), function(err, schedule) {
+                if (err) throw err;
+
+                schedule.markModified('Date');
+                schedule.Date[newSchedule.index].tiffin = newSchedule.tiffin;
+
+                schedule.save(function (err, data) {
+                    if (err) throw err;
+
+                    Schedule.find({CustomerId: Object(newSchedule.customerId)}, function(err, schedule) {
+                        if (err) throw err;
+                    
+                        // object of all the customera
+                        console.log(schedule);
+                        resolve(schedule);
+                    });
+                  });
+            });
+        });
+    },
     saveSchedule(scheduler) {
         return new Promise(function (resolve, reject) {
             scheduler.save()
@@ -44,6 +68,18 @@ module.exports = {
                 // object of all the customera
                 console.log(customera);
                 resolve(customera);
+            });
+        });
+    },
+    getSchedule(customerId) {
+        return new Promise(function (resolve, reject) {
+            // get all the customer
+            Schedule.find({CustomerId: Object(customerId)}, function(err, schedule) {
+                if (err) throw err;
+            
+                // object of all the customera
+                console.log(schedule);
+                resolve(schedule);
             });
         });
     }

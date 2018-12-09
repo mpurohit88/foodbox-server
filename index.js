@@ -6,9 +6,35 @@ const Scheduler= require('./schema/schedule');
 
 const {getDates} = require('./helper');
 
-const { saveCustomer, getCustomer, saveSchedule } = require('./db/connection');
+const { saveCustomer, getCustomer, saveSchedule, getSchedule, updateSchedule } = require('./db/connection');
 
 module.exports = {
+    
+    updateSchedule(data) {
+        return new Promise(function (resolve, reject) {
+            let tiffin = {};
+            let scheduler = {};
+
+            if(data.tiffinType === "3") {
+                tiffin.launch = 40;
+                tiffin.dinner = 40;
+            } else if(data.tiffinType === "1") {
+                tiffin.launch = 40;
+            } else if(data.tiffinType === "2") {
+                tiffin.dinner = 40;
+            }
+
+            scheduler.customerId = data.customerId;
+            scheduler.Id = new Object(data._id);
+            scheduler.Date = new Date(data.date)
+            scheduler.index = data.index;
+            scheduler.tiffin = tiffin;
+
+            return updateSchedule(scheduler).then(function(data) {
+                resolve(data);
+            });
+        });
+    },
     saveSchedule(data) {
         return new Promise(function (resolve, reject) {
             scheduler = new Scheduler();
@@ -56,6 +82,13 @@ module.exports = {
         return new Promise(function (resolve, reject) {
             return getCustomer().then(function(customers) {
                 resolve(customers);
+            })
+        });
+    },
+    getSchedule(customerId) {
+        return new Promise(function (resolve, reject) {
+            return getSchedule(customerId).then(function(schedule) {
+                resolve(schedule);
             })
         });
     }
