@@ -13,7 +13,7 @@ const getBookAuthorDetails = require('./index').getBookAuthorDetails;
 app.use(express.static(path.join(__dirname, 'build')));
 
 // Set up mongoose connection
-const mongoDB = "mongodb://mukesh:dhrDG!421@foodbox-shard-00-00-ogufn.mongodb.net:27017,foodbox-shard-00-01-ogufn.mongodb.net:27017,foodbox-shard-00-02-ogufn.mongodb.net:27017/foodbox?ssl=true&replicaSet=foodbox-shard-0&authSource=admin&retryWrites=true";
+const mongoDB = "******";
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
