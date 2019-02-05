@@ -51,7 +51,7 @@ app.get('/api/filterCustomer', function (req, res) {
   filterCustomer(req.query.date, req.query.tiffinType).then(authorDetails => res.send(authorDetails));
 });
 
-app.get('/', function (req, res) {
+app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
